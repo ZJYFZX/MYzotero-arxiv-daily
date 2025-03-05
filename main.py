@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 from pyzotero import zotero
-from recommender import rerank_paper
+#from recommender import rerank_paper
+from recommend1 import rerank_paper
 from construct_email import render_email, send_email
 from tqdm import trange,tqdm
 from loguru import logger
