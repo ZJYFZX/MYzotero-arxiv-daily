@@ -29,13 +29,13 @@ def rerank_paper(candidate: list[ArxivPaper], corpus: list[dict], model: str = '
             print("错误: 条目缺少data字段")
     # 处理空语料库（首次运行可能触发）
     if not corpus:
-        print("Warning: 语料库为空，返回0顺序。")
-        '''
+        print("Warning: 语料库为空，返回顺序。")
+        
         for paper in candidate:
             paper.score = np.random.uniform(0, 10)  # 生成 0-10 的随机分
         return sorted(candidate, key=lambda x: x.score, reverse=True)
-        '''
-        return candidate
+        
+        # return candidate
     
     # 按时间排序语料库
     corpus = sorted(corpus, key=lambda x: datetime.strptime(x['data']['dateAdded'], '%Y-%m-%dT%H:%M:%SZ'), reverse=True)
