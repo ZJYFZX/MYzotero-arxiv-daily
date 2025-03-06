@@ -5,7 +5,28 @@ from datetime import datetime
 
 def rerank_paper(candidate: list[ArxivPaper], corpus: list[dict], model: str = 'avsolatorio/GIST-small-Embedding-v0') -> list[ArxivPaper]:
     encoder = SentenceTransformer(model)
+    # 调试打印语料库结构
+    print("\n[Debug] 当前语料库内容：")
+    print(f"语料库条目数量：{len(corpus)}")
     
+    # 打印前3条语料（避免过多输出）
+    for i, paper in enumerate(corpus[:3]):
+        print(f"\n--- 语料条目 {i+1} ---")
+        print("完整结构:", paper)
+        
+        # 检查关键字段是否存在
+        if 'data' in paper:
+            print("data字段类型:", type(paper['data']))
+            if 'dateAdded' in paper['data']:
+                print("添加时间:", paper['data']['dateAdded'])
+            else:
+                print("警告: data字段缺少dateAdded键")
+            if 'abstractNote' in paper['data']:
+                print("摘要长度:", len(paper['data']['abstractNote']))
+            else:
+                print("警告: data字段缺少abstractNote键")
+        else:
+            print("错误: 条目缺少data字段")
     # 处理空语料库（首次运行可能触发）
     if not corpus:
         print("Warning: 语料库为空，返回0顺序。")
